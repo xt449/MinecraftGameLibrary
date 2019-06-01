@@ -61,7 +61,7 @@ public class HologramManager {
 
 	static Hologram register(Hologram hologram) {
 		if(!initialized) {
-			throw new IllegalMonitorStateException("InventoryInterfaceManager was not initialized by any plugin!");
+			throw new IllegalMonitorStateException("HologramManager was not initialized by any plugin!");
 		} else {
 			holograms.add(hologram);
 			return hologram;
