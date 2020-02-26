@@ -1,4 +1,4 @@
-package xt449.minecraftgamelibrary.GUI;
+package com.github.xt449.minecraftgamelibrary.GUI;
 
 import org.bukkit.plugin.Plugin;
 

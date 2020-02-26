@@ -1,4 +1,4 @@
-package xt449.minecraftgamelibrary.GUI;
+package com.github.xt449.minecraftgamelibrary.GUI;
 
 import net.minecraft.server.v1_14_R1.EntityArmorStand;
 import org.bukkit.Location;

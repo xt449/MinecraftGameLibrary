@@ -1,4 +1,4 @@
-package xt449.minecraftgamelibrary;
+package com.github.xt449.minecraftgamelibrary;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

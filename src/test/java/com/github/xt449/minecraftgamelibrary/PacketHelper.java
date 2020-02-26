@@ -1,4 +1,4 @@
-package xt449.minecraftgamelibrary;
+package com.github.xt449.minecraftgamelibrary;
 
 public class PacketHelper {
 

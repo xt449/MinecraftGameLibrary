@@ -1,4 +1,4 @@
-package xt449.minecraftgamelibrary;
+package com.github.xt449.minecraftgamelibrary;
 
 public final class EntityObjectTypes {
 	public static final int Boat = 1;
