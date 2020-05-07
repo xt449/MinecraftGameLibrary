@@ -1,5 +1,8 @@
 package com.github.xt449.minecraftgamelibrary.GUI;
 
+/**
+ * @author xt449
+ */
 public class UpdatingHologramVariableReplacer {
 	final String placeholder;
 	final UpdatingHologramVariable variable;

@@ -1,13 +1,16 @@
 package com.github.xt449.minecraftgamelibrary.GUI;
 
-import net.minecraft.server.v1_14_R1.EntityArmorStand;
+import net.minecraft.server.v1_15_R1.EntityArmorStand;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftArmorStand;
+import org.bukkit.craftbukkit.v1_15_R1.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
 import java.util.*;
 
+/**
+ * @author xt449
+ */
 public class Hologram {
 
 	private Location locationBase;

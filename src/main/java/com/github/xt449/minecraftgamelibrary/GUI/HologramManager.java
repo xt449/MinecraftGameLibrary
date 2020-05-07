@@ -4,6 +4,9 @@ import org.bukkit.plugin.Plugin;
 
 import java.util.*;
 
+/**
+ * @author xt449
+ */
 public class HologramManager {
 
 	private static List<Hologram> holograms = new ArrayList<>();

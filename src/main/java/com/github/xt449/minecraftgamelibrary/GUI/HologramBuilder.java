@@ -4,6 +4,9 @@ import org.bukkit.Location;
 
 import java.util.*;
 
+/**
+ * @author xt449
+ */
 public class HologramBuilder {
 
 	private List<String> rawTexts = new ArrayList<>();

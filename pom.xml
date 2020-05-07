@@ -10,7 +10,7 @@
     <name>MinecraftGameLibrary</name>
 
     <properties>
-        <minecraft.version>1.14.2</minecraft.version>
+        <minecraft.version>1.15.2</minecraft.version>
     </properties>
 
     <repositories>
