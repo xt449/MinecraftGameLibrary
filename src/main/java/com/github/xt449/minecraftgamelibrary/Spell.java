@@ -1,4 +1,4 @@
-package com.github.xt449.minecraftgamelibrary.GUI;
+package com.github.xt449.minecraftgamelibrary;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
