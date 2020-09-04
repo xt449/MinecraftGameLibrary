@@ -1,27 +1,26 @@
 package com.github.xt449.minecraftgamelibrary.GUI;
 
-import net.minecraft.server.v1_15_R1.EntityArmorStand;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftArmorStand;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author xt449
  */
 public class Hologram {
 
-	private Location locationBase;
+	private final Location locationBase;
 
-	private List<String> rawTexts;
-	private List<UpdatingHologramVariableReplacer> replacers;
+	private final List<String> rawTexts;
+	private final List<UpdatingHologramVariableReplacer> replacers;
 
 	//private boolean defaultVisibility;
 	//private Collection<Player> playerList;
 
-	private List<ArmorStand> parts = new ArrayList<>();
+	private final List<ArmorStand> parts = new ArrayList<>();
 
 	//private String[] texts;
 
@@ -39,24 +38,6 @@ public class Hologram {
 		return defaultVisibility != playerList.contains(player);
 	}*/
 
-	public Location debug() {
-		System.out.println(parts.size() + " parts at 0,0 terrain");
-
-		for(ArmorStand armorStand : parts) {
-			armorStand.teleport(armorStand.getLocation().add(-1, -1, -1));
-			armorStand.setCustomName("OMEGALUL?");
-			armorStand.setCustomNameVisible(true);
-			armorStand.setMarker(false);
-			((CraftArmorStand) armorStand).getHandle().setInvisible(false);
-			armorStand.teleport(armorStand.getLocation().add(2, 2, 2));
-			//System.out.println(armorStand);
-			//System.out.println("Invulnerable: " + armorStand.isInvulnerable());
-			//System.out.println("Alive: " + !armorStand.isDead());
-		}
-
-		return parts.get(0).getLocation();
-	}
-
 	void update() {
 		while(parts.size() < rawTexts.size()) {
 			ArmorStand armorStand = null;
@@ -68,7 +49,6 @@ public class Hologram {
 			}
 
 			if(armorStand == null) {
-				System.out.println("BOGGED!");
 				continue;
 			}
 
@@ -76,19 +56,14 @@ public class Hologram {
 				armorStand = (ArmorStand) locationBase.getWorld().spawnEntity(locationBase, EntityType.ARMOR_STAND);
 				TimeUnit.SECONDS.sleep(1);
 			}*/
-			{
-				// 1.13 - armorStand.setCanMove(false);
-				// 1.13 - armorStand.setCanTick(false);
-				armorStand.setAI(false);
-			}
-			{
-				EntityArmorStand entityArmorStand = ((CraftArmorStand) armorStand).getHandle();
-				entityArmorStand.setCustomNameVisible(true);
-				entityArmorStand.setInvisible(true);
-				entityArmorStand.setInvulnerable(true);
-				entityArmorStand.setMarker(true);
-				entityArmorStand.setNoGravity(true);
-			}
+
+			// 1.13 - armorStand.setCanMove(false);
+			// 1.13 - armorStand.setCanTick(false);
+			armorStand.setAI(false);
+			armorStand.setCustomNameVisible(true);
+			armorStand.setInvulnerable(true);
+			armorStand.setMarker(true);
+			armorStand.setGravity(false);
 
 			parts.add(armorStand);
 		}
