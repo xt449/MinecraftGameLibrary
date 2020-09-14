@@ -22,6 +22,7 @@ package com.github.xt449.minecraftgamelibrary;
 
 import org.bukkit.entity.Player;
 
+@Deprecated
 public class ManaSystem {
 
 	final Checker checker;

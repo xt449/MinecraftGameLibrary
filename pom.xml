@@ -6,7 +6,7 @@
 
     <groupId>com.github.xt449</groupId>
     <artifactId>minecraftgamelibrary</artifactId>
-    <version>${minecraft.version}-1.0.1-Beta</version>
+    <version>${minecraft.version}-1.0.2-Beta</version>
     <name>MinecraftGameLibrary</name>
 
     <properties>

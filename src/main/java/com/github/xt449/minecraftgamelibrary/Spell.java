@@ -103,20 +103,20 @@ public class Spell {
 
 	public void cast(@NotNull Player player) {
 		if(!onCooldown(player)) {
-			if(manaSystem.checker.check(this, player, this.mana)) {
+			if(checkMana(player)) {
 				if(this.action.apply(player)) {
 					startCooldown(player);
-					manaSystem.spender.spend(this, player, this.mana);
+					spendMana(player);
 				}
 			} else {
-				manaSystem.manaFailure.execute(this, player);
+				onManaFailure(player);
 				final TextComponent text = new TextComponent("Not enough mana");
 				text.setColor(ChatColor.DARK_AQUA);
 				player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
 			}
 		} else {
-			manaSystem.cooldownFailure.execute(this, player);
-			final TextComponent text = new TextComponent("Cooldown has " + decimalFormat.format(getRemainingCooldown(player) / 20F) + " seconds remaining");
+			onCooldownFailure(player);
+			final TextComponent text = new TextComponent("Cooldown has " + Spell.decimalFormat.format(getRemainingCooldown(player) / 20F) + " seconds remaining");
 			text.setColor(ChatColor.DARK_AQUA);
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
 		}
@@ -147,6 +147,9 @@ public class Spell {
 		return remainingCooldown != null && remainingCooldown > 0;
 	}
 
+	/**
+	 * @return item stack with instance's name, material, and color
+	 */
 	public ItemStack getItemStack() {
 		final ItemStack itemStack = new ItemStack(material);
 		final ItemMeta itemMeta = itemStack.getItemMeta();
@@ -173,10 +176,38 @@ public class Spell {
 				Objects.equals(action, spell.action);
 	}
 
+	public boolean checkMana(Player player) {
+		return mana <= player.getLevel();
+	}
+
+	public void spendMana(Player player) {
+		final int remaining = player.getLevel() - mana;
+		if(remaining < 0) {
+			player.setLevel(0);
+		} else {
+			player.setLevel(remaining);
+		}
+	}
+
+	public void onManaFailure(Player player) {
+		player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 0.2F, 1);
+		final TextComponent text = new TextComponent("Requires " + mana + " mana");
+		text.setColor(ChatColor.DARK_AQUA);
+		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
+	}
+
+	public void onCooldownFailure(Player player) {
+		player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 0.2F, 1);
+		final TextComponent text = new TextComponent("Cooldown has " + Spell.decimalFormat.format(getRemainingCooldown(player) / 20F) + " seconds remaining");
+		text.setColor(ChatColor.DARK_AQUA);
+		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
+	}
+
 	// static
 
 	private static final HashSet<Spell> registered = new HashSet<>();
 
+	@Deprecated
 	private static ManaSystem manaSystem = new ManaSystem(
 			(spell, player, mana) -> mana <= player.getLevel(),
 			(spell, player, mana) -> {
@@ -207,6 +238,7 @@ public class Spell {
 		return Spell.registered;
 	}
 
+	@Deprecated
 	public static void setManaSystem(ManaSystem manaSystem) {
 		Spell.manaSystem = manaSystem;
 	}
