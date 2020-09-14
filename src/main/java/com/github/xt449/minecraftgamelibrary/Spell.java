@@ -181,12 +181,7 @@ public class Spell {
 	}
 
 	public void spendMana(Player player) {
-		final int remaining = player.getLevel() - mana;
-		if(remaining < 0) {
-			player.setLevel(0);
-		} else {
-			player.setLevel(remaining);
-		}
+		player.setLevel(Math.max(player.getLevel() - mana, 0));
 	}
 
 	public void onManaFailure(Player player) {
@@ -207,41 +202,11 @@ public class Spell {
 
 	private static final HashSet<Spell> registered = new HashSet<>();
 
-	@Deprecated
-	private static ManaSystem manaSystem = new ManaSystem(
-			(spell, player, mana) -> mana <= player.getLevel(),
-			(spell, player, mana) -> {
-				final int remaining = player.getLevel() - mana;
-				if(remaining < 0) {
-					player.setLevel(0);
-				} else {
-					player.setLevel(remaining);
-				}
-			},
-			(spell, player) -> {
-				player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 0.2F, 1);
-				final TextComponent text = new TextComponent("Requires " + spell.mana + " mana");
-				text.setColor(ChatColor.DARK_AQUA);
-				player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
-			},
-			(spell, player) -> {
-				player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 0.2F, 1);
-				final TextComponent text = new TextComponent("Cooldown has " + Spell.decimalFormat.format(spell.getRemainingCooldown(player) / 20F) + " seconds remaining");
-				text.setColor(ChatColor.DARK_AQUA);
-				player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
-			}
-	);
-
-	protected static DecimalFormat decimalFormat = new DecimalFormat("#.##");
-
 	public static HashSet<Spell> getAll() {
 		return Spell.registered;
 	}
 
-	@Deprecated
-	public static void setManaSystem(ManaSystem manaSystem) {
-		Spell.manaSystem = manaSystem;
-	}
+	protected static DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
 	public static void setDecimalFormat(DecimalFormat decimalFormat) {
 		Spell.decimalFormat = decimalFormat;
