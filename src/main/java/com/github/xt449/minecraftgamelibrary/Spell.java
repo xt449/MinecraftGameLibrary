@@ -101,6 +101,9 @@ public class Spell {
 		}
 	}
 
+	/**
+	 * Attempts to cast the spell as the given player
+	 */
 	public void cast(@NotNull Player player) {
 		if(!onCooldown(player)) {
 			if(checkMana(player)) {
@@ -169,21 +172,30 @@ public class Spell {
 		if(this == other) return true;
 		if(other == null || getClass() != other.getClass()) return false;
 		final Spell spell = (Spell) other;
-		return Objects.equals(name, spell.name) &&
-				mana == spell.mana &&
+		return name.equals(spell.name) &&
 				material == spell.material &&
+				mana == spell.mana &&
 				cooldown == spell.cooldown &&
-				Objects.equals(action, spell.action);
+				action.equals(spell.action);
 	}
 
+	/**
+	 * Returns true if the given player has enough "mana" to cast this spell
+	 */
 	public boolean checkMana(Player player) {
 		return mana <= player.getLevel();
 	}
 
+	/**
+	 * Reduces the "mana" of the given player by the cost of this spell
+	 */
 	public void spendMana(Player player) {
 		player.setLevel(Math.max(player.getLevel() - mana, 0));
 	}
 
+	/**
+	 * Called when a spell cast attempt fails because of a lack of "mana"
+	 */
 	public void onManaFailure(Player player) {
 		player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 0.2F, 1);
 		final TextComponent text = new TextComponent("Requires " + mana + " mana");
@@ -191,6 +203,9 @@ public class Spell {
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, text);
 	}
 
+	/**
+	 * Called when a spell cast attempt fails because of the cooldown still being active
+	 */
 	public void onCooldownFailure(Player player) {
 		player.playSound(player.getLocation(), Sound.ENTITY_CREEPER_PRIMED, 0.2F, 1);
 		final TextComponent text = new TextComponent("Cooldown has " + Spell.decimalFormat.format(getRemainingCooldown(player) / 20F) + " seconds remaining");
@@ -202,18 +217,24 @@ public class Spell {
 
 	private static final HashSet<Spell> registered = new HashSet<>();
 
+	/**
+	 * Gets a set of all of the registered spells
+	 */
 	public static HashSet<Spell> getAll() {
 		return Spell.registered;
 	}
 
 	protected static DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
+	/**
+	 * Sets the decimal format to use for display
+	 */
 	public static void setDecimalFormat(DecimalFormat decimalFormat) {
 		Spell.decimalFormat = decimalFormat;
 	}
 
 	/**
-	 * Tick all registered spells' cooldowns
+	 * Ticks all registered spells' cooldowns
 	 */
 	public static void tickAllCooldowns() {
 		for(Spell spell : Spell.registered) {
@@ -222,7 +243,6 @@ public class Spell {
 					spell.playerCooldowns.put(kvp.getKey(), kvp.getValue() - 1);
 				}
 			}
-			/*spell.tickCooldowns();*/
 		}
 	}
 

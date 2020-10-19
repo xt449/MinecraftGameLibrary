@@ -35,18 +35,22 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
             <version>${minecraft.version}-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <!--<dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>${minecraft.version}-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>-->
 
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>16.0.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -56,13 +60,4 @@
             <url>https://maven.pkg.github.com/xt449/${project.artifactId}/</url>
         </repository>
     </distributionManagement>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources/</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
 </project>
