@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 xt449/BinaryBanana
+ * Copyright (c) 2020 Jonathan Talcott (xt449 / BinaryBanana)
  *
  * This file is part of MinecraftGameLibrary.
  *
@@ -36,6 +36,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Objects;
 
+/**
+ * @author Jonathan Taclott (xt449 / BinaryBanana)
+ */
 public class Spell {
 
 	private final HashMap<Player, Integer> playerCooldowns = new HashMap<>();
